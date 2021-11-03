@@ -7,7 +7,7 @@ function Home() {
         <div>
             <div className="home">
                 <div className="home__container">
-                    <img src="https://i.ibb.co/5cWWnXc/e-commerce.png" alt="e-commerce" className="home__image" />
+                    <img src="https://i.ibb.co/S6HNnTJ/e-commerce-for-you2.png" alt="e-commerce" className="home__image" />
                     
                     <div className="home__row">
                         <Product 

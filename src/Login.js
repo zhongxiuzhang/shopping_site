@@ -3,13 +3,20 @@ import './Login.css';
 import {Link, useHistory} from 'react-router-dom';
 import StorefrontIcon from '@mui/icons-material/Storefront';
 import { auth } from "./firebase";
+import { useStateValue } from "./StateProvider";
 
 function Login() {
+    const [state, dispatch] = useStateValue();
+
     const history = useHistory();
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
 
     const signIn = e => {
+        dispatch({
+            type: "SIGN_IN"
+        });
+
         e.preventDefault();
 
         auth
@@ -22,6 +29,10 @@ function Login() {
     }
 
     const register = e => {
+        dispatch({
+            type: "SIGN_IN"
+        });
+
         e.preventDefault();
 
         auth
