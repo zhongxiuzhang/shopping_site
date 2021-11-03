@@ -1,5 +1,5 @@
 // here we define all the application level states and define actions to make the change to the state
-
+// redux
 export const initialState = {
     login: false,
     basket: [],
