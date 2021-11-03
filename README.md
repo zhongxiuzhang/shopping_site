@@ -2,6 +2,8 @@
 
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
 
+This is a pseudo shopping website. The app is deployed on [https://eshop-50dac.web.app/](https://eshop-50dac.web.app/).
+
 ## Available Scripts
 
 In the project directory, you can run:
