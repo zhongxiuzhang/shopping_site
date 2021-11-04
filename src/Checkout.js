@@ -1,11 +1,10 @@
 import React from "react";
 import "./Checkout.css";
-import CheckoutProduct from "./CheckoutProduct";
+import RCheckoutProduct from "./CheckoutProduct";
 import Subtotal from "./Subtotal";
-import { useStateValue} from "./StateProvider"
+import { connect } from 'react-redux';
 
-function Checkout() {
-    const [{basket}, dispatch] = useStateValue();
+function Checkout(props) {
     return (
         <div className="checkout">
             <div className="checkout__left">
@@ -14,8 +13,8 @@ function Checkout() {
                     <h2 className="checkout_title">
                         Your Shopping Basket
                     </h2>
-                    {basket.map( item => (
-                        <CheckoutProduct
+                    {props.basket.map( item => (
+                        <RCheckoutProduct
                             id = {item.id}
                             title = {item.title}
                             image = {item.image}
@@ -23,7 +22,7 @@ function Checkout() {
                             rating = {item.rating}
                             amount = {item.amount}
                         />
-                    ))}
+                   ))}
                 </div>
             </div>
 
@@ -34,4 +33,12 @@ function Checkout() {
     )
 }
 
-export default Checkout
+function mapStateToProps(state) {
+    return {
+      basket: state.basket
+    }
+  };
+
+const RCheckout = connect(mapStateToProps)(Checkout);
+
+export default RCheckout

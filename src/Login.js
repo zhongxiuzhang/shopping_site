@@ -3,19 +3,23 @@ import './Login.css';
 import {Link, useHistory} from 'react-router-dom';
 import StorefrontIcon from '@mui/icons-material/Storefront';
 import { auth } from "./firebase";
-import { useStateValue } from "./StateProvider";
+import { connect } from "react-redux";
 
-function Login() {
-    const [state, dispatch] = useStateValue();
+const signIn = () => {
+    return {type:"SIGN_IN"};
+}
+const register = () => {
+    return {type:"SIGN_IN"};
+}
+
+function Login(props) {
 
     const history = useHistory();
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
 
-    const signIn = e => {
-        dispatch({
-            type: "SIGN_IN"
-        });
+    const pSignIn = e => {
+        props.sSignIN();
 
         e.preventDefault();
 
@@ -28,10 +32,8 @@ function Login() {
 
     }
 
-    const register = e => {
-        dispatch({
-            type: "SIGN_IN"
-        });
+    const pRegister = e => {
+        props.sRegister();
 
         e.preventDefault();
 
@@ -65,7 +67,7 @@ function Login() {
                     <h5>Password</h5>
                     <input type="password" value={password} onChange={e => setPassword(e.target.value)}/>
                 
-                    <button type="submit" className="login__signInButton" onClick={signIn}>Sign In</button>
+                    <button type="submit" className="login__signInButton" onClick={pSignIn}>Sign In</button>
                 </form>
 
                 <p>
@@ -73,7 +75,7 @@ function Login() {
                     see our Privacy Notice, our Cookies Notice and our Interest-Based Ads Notice.
                 </p>
 
-                <button className='login__registerButton' onClick={register}>Create your eShop Account</button>
+                <button className='login__registerButton' onClick={pRegister}>Create your eShop Account</button>
 
             </div>
 
@@ -81,4 +83,13 @@ function Login() {
     )
 }
 
-export default Login
+function mapDispatchToProps(dispatch) {
+    return {
+        sSignIN: () => {dispatch(signIn())},
+        sRegister: () => {dispatch(register())},
+    }
+  };
+
+const RLogin = connect(null, mapDispatchToProps)(Login);
+
+export default RLogin

@@ -4,19 +4,16 @@ import ShoppingBasketIcon from '@mui/icons-material/ShoppingBasket';
 import StorefrontIcon from '@mui/icons-material/Storefront';
 import SearchIcon from '@mui/icons-material/Search';
 import { Link } from "react-router-dom";
-import {useStateValue} from "./StateProvider";
 import { getBasketAmount, getLogStatus } from "./reducer";
+import { connect } from 'react-redux';
 
-
-function Header() {
-    const [state, dispatch] = useStateValue();
-
-    const logOut = () => {
-        dispatch({
-            type: "LOG_OUT"
-        });
+const logOut = () => {
+    return {
+        type: "LOG_OUT"
     };
+};
 
+function Header(props) {
     return (
         <div className="header">
             <Link to="/" style={{textDecoration: "none"}}>
@@ -35,7 +32,7 @@ function Header() {
         <Link to="/login" style={{textDecoration: "none"}}>
             <div className="nav__item">
             <span className="nav__itemLineOne">Hello Guest</span>
-            <span className="nav__itemLineTwo" onClick={logOut}>{getLogStatus(state.login)}</span>
+            <span className="nav__itemLineTwo" onClick={()=>props.sLogOut()}>{getLogStatus(props.login)}</span>
             </div>
         </Link>
 
@@ -47,7 +44,7 @@ function Header() {
         <Link to="/checkout" style={{textDecoration: "none"}}>
             <div className="nav__itemBasket">
             <ShoppingBasketIcon />
-            <span className="nav__itemLineTwo nav__basketCount">{getBasketAmount(state.basket)}</span>   
+            <span className="nav__itemLineTwo nav__basketCount">{getBasketAmount(props.basket)}</span>   
             </div>
         </Link>
 
@@ -57,4 +54,19 @@ function Header() {
     )
 }
 
-export default Header
+function mapStateToProps(state) {
+    return {
+      login: state.login,
+      basket: state.basket
+    }
+  };
+
+function mapDispatchToProps(dispatch) {
+    return {
+        sLogOut: () => {dispatch(logOut())}
+    }
+};
+
+const RHeader = connect(mapStateToProps, mapDispatchToProps)(Header);
+
+export default RHeader
